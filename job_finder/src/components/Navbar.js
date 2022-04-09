@@ -18,13 +18,18 @@ const Nav = () => {
           {/* <a href="/profile">Profile</a> */}
           {!Cookies.get("token") && <a href="/login">Login</a>}
           {!Cookies.get("token") && <a href="/register">Register</a>}
-          {Cookies.get("token") && <a href="/dashboard">Profile</a>}
+          {Cookies.get("token") && (
+            <a href="/dashboard/list-job-vacancy">Dashboard</a>
+          )}
 
           {Cookies.get("token") && (
             <a
               href="/"
               onClick={() => {
                 Cookies.remove("token");
+                Cookies.remove("name");
+                Cookies.remove("email");
+                Cookies.remove("image_url");
               }}
             >
               Logout

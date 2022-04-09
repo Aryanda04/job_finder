@@ -3,17 +3,18 @@ import React from "react";
 const Foot = () => {
   return (
     <>
-      <div class="w-full bottom-0 pt-5 border-t border-teal-900 bg-teal-700">
-        <div class="flex items-center justify-center mb-5">
+      <div className="w-full bottom-0 pt-5 border-t border-teal-900 bg-teal-700">
+        <div className="flex items-center justify-center mb-5">
           <a
             href="https://www.instagram.com/aryandarizky7/"
             target="_blank"
-            class="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
+            rel="noreferrer"
+            className="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
           >
             <svg
               role="img"
               width="20"
-              class="fill-current"
+              className="fill-current"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -25,12 +26,13 @@ const Foot = () => {
           <a
             href="https://twitter.com/aryandarizky7/"
             target="_blank"
-            class="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
+            rel="noreferrer"
+            className="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
           >
             <svg
               role="img"
               width="20"
-              class="fill-current"
+              className="fill-current"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -42,12 +44,13 @@ const Foot = () => {
           <a
             href="https://TikTok.com/aryandarizky7/"
             target="_blank"
+            rel="noreferrer"
             className="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
           >
             <svg
               role="img"
               width="20"
-              class="fill-current"
+              className="fill-current"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -59,12 +62,13 @@ const Foot = () => {
           <a
             href="https://www.linkedin.com/in/aryanda-rizky-pratama-b364a11a4/"
             target="_blank"
-            class="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
+            rel="noreferrer"
+            className="w-9 h-9 mr-3 rounded-full flex justify-center items-center border border-slate-300 text-slate-300 hover:border-primary hover:bg-primary hover:text-white"
           >
             <svg
               role="img"
               width="20"
-              class="fill-current"
+              className="fill-current"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -73,7 +77,7 @@ const Foot = () => {
             </svg>
           </a>
         </div>
-        <p class="font-medium text-lg text-slate-300 text-center">
+        <p className="font-medium text-lg text-slate-300 text-center">
           copyright &#169; 2022 Aryanda Rizky
         </p>
       </div>

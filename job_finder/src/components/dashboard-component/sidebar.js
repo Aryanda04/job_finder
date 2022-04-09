@@ -1,4 +1,5 @@
 /*eslint-disable*/
+import Cookies from "js-cookie";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -63,61 +64,20 @@ export default function Sidebar() {
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/dashboard") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/dashboard"
-                >
-                  <i
-                    className={
-                      "fas fa-tv mr-2 text-sm " +
-                      (window.location.href.indexOf("/dashboard") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Dashboard
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/dashboard/settings") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  to="/dashboard/settings"
-                >
-                  <i
-                    className={
-                      "fas fa-tools mr-2 text-sm " +
-                      (window.location.href.indexOf("/dashboard/settings") !==
-                      -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Profile
-                </Link>
-              </li>
-
-              <li className="items-center">
-                <Link
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/tables") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
+                    (window.location.href.indexOf(
+                      "/dashboard/list-job-vacancy"
+                    ) !== -1
+                      ? "text-slate-500 hover:text-teal-500"
+                      : "text-slate-700 hover:text-teal-500")
                   }
                   to="/dashboard/list-job-vacancy"
                 >
                   <i
                     className={
                       "fas fa-table mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/tables") !== -1
+                      (window.location.href.indexOf(
+                        "/dashboard/list-job-vacancy"
+                      ) !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
@@ -125,11 +85,114 @@ export default function Sidebar() {
                   Tables
                 </Link>
               </li>
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf(
+                      "/dashboard/list-job-vacancy/form"
+                    ) !== -1
+                      ? "text-slate-500 hover:text-teal-500"
+                      : "text-slate-700 hover:text-teal-500")
+                  }
+                  to="/dashboard/list-job-vacancy/form"
+                >
+                  <i
+                    className={
+                      "fas fa-table mr-2 text-sm " +
+                      (window.location.href.indexOf(
+                        "/dashboard/list-job-vacancy/form"
+                      ) !== -1
+                        ? "opacity-75"
+                        : "text-blueGray-300")
+                    }
+                  ></i>{" "}
+                  Input Form
+                </Link>
+              </li>
+
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/dashboard/profile") !== -1
+                      ? "text-slate-500 hover:text-teal-500"
+                      : "text-slate-700 hover:text-teal-500")
+                  }
+                  to="/dashboard/profile"
+                >
+                  <i
+                    className={
+                      "fas fa-tools mr-2 text-sm " +
+                      (window.location.href.indexOf("/dashboard/profile") !== -1
+                        ? "opacity-75"
+                        : "text-blueGray-300")
+                    }
+                  ></i>{" "}
+                  Profile
+                </Link>
+              </li>
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf(
+                      "/dashboard/profile/change-passworde"
+                    ) !== -1
+                      ? "text-slate-500 hover:text-teal-500"
+                      : "text-slate-700 hover:text-teal-500")
+                  }
+                  to="/dashboard/profile/change-password"
+                >
+                  <i
+                    className={
+                      "fas fa-tools mr-2 text-sm " +
+                      (window.location.href.indexOf(
+                        "/dashboard/profile/change-password"
+                      ) !== -1
+                        ? "opacity-75"
+                        : "text-blueGray-300")
+                    }
+                  ></i>{" "}
+                  Change Password
+                </Link>
+              </li>
             </ul>
 
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
-
+            <ul>
+              <li className="items-center">
+                <Link
+                  onClick={() => {
+                    Cookies.remove("token");
+                    Cookies.remove("name");
+                    Cookies.remove("email");
+                    Cookies.remove("image_url");
+                  }}
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/") !== -1
+                      ? "text-slate-500 hover:text-teal-500"
+                      : "text-slate-700 hover:text-teal-500")
+                  }
+                  to="/"
+                >
+                  <a
+                    onClick={() => {
+                      Cookies.remove("token");
+                    }}
+                    className={
+                      "fas fa-table mr-2 text-sm " +
+                      (window.location.href.indexOf("/") !== -1
+                        ? "opacity-75"
+                        : "text-teal-300")
+                    }
+                  ></a>{" "}
+                  Logout
+                </Link>
+              </li>
+            </ul>
             {/* Divider */}
           </div>
         </div>

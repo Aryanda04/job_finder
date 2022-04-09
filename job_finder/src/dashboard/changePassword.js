@@ -3,13 +3,12 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-const Regist = () => {
+const ChangePassword = () => {
   let history = useHistory();
   const [input, setInput] = useState({
-    name: "",
-    image_url: "",
-    email: "",
-    password: "",
+    current_password: "",
+    new_password: "",
+    new_confirm_password: "",
   });
 
   const handleChange = (e) => {
@@ -20,92 +19,78 @@ const Regist = () => {
   const handleRegist = (e) => {
     e.preventDefault();
 
-    let { name, image_url, email, password } = input;
+    let { current_password, new_password, new_confirm_password } = input;
     axios
-      .post("https://dev-example.sanbercloud.com/api/register ", {
-        name,
-        image_url,
-        email,
-        password,
-      })
+      .post(
+        "https://dev-example.sanbercloud.com/api/change-password ",
+        {
+          current_password,
+          new_password,
+          new_confirm_password,
+        },
+        { headers: { Authorization: "Bearer " + Cookies.get("token") } }
+      )
       .then((res) => {
         // let { token } = res.data;
         // Cookies.set("token", token, { expires: 1 });
-        alert("Akun berhasil dibuat");
+        alert("Password berhasil diubah");
         history.push("/");
       })
       .catch((error) => {
         console.log(error);
-        alert("Registrasi gagal");
+        alert("Password gagal diubah");
       });
     setInput({
-      name: "",
-      image_url: "",
-      email: "",
-      password: "",
+      current_password: "",
+      new_password: "",
+      new_confirm_password: "",
     });
   };
   return (
     <>
-      <div class="flex items-center justify-center min-h-screen bg-gray-100">
-        <div class="px-8 py-6 mx-4 mt-4 text-left bg-white shadow-lg md:w-1/3 lg:w-1/3 sm:w-1/3">
-          <h3 class="text-2xl font-bold text-center">Join us</h3>
+      <div class="flex items-center justify-center min-h-screen ">
+        <div class="px-8 py-6 mx-4 mt-4 text-left bg-white shadow-2xl md:w-1/3 lg:w-1/2 sm:w-1/3">
+          <h3 class="text-2xl font-bold text-center">Change Password</h3>
           <form onSubmit={handleRegist} method="POST">
             <div class="mt-4">
               <div>
                 <label class="block" for="Name">
-                  Name
+                  Masukkan Password Lama
                 </label>
                 <input
                   onChange={handleChange}
-                  type="text"
-                  placeholder="Name"
-                  name="name"
+                  type="password"
+                  placeholder="Current Password"
+                  name="current_password"
                   class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                 />
               </div>
               <div class="mt-4">
                 <label class="block" for="email">
-                  Foto Profile
+                  Masukkan Password Baru
                 </label>
                 <input
                   onChange={handleChange}
-                  type="text"
-                  placeholder="URL Image"
-                  name="image_url"
+                  type="password"
+                  placeholder=""
+                  name="new_password"
                   class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                 />
               </div>
               <div class="mt-4">
-                <label class="block">Email</label>
-                <input
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="Email"
-                  name="email"
-                  class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                />
-              </div>
-              <div class="mt-4">
-                <label class="block">Password</label>
+                <label class="block">Konfirmasi Password Baru</label>
                 <input
                   onChange={handleChange}
                   type="password"
-                  placeholder="Password"
-                  name="password"
+                  placeholder=""
+                  name="new_confirm_password"
                   class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                 />
               </div>
               <div class="flex">
                 <button class="w-full px-6 py-2 mt-4 text-white bg-primary rounded-lg hover:bg-teal-500">
-                  Create Account
+                  Change Password
                 </button>
-              </div>
-              <div class="mt-6 text-grey-dark">
-                Already have an account?
-                <a class="text-blue-600 hover:underline" href="/login">
-                  Log in
-                </a>
               </div>
             </div>
           </form>
@@ -114,4 +99,4 @@ const Regist = () => {
     </>
   );
 };
-export default Regist;
+export default ChangePassword;

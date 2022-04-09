@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export const DataJobContext = createContext();
 
@@ -8,9 +9,19 @@ export const DataJobProvider = (props) => {
   let history = useHistory();
   const [dataJob, setDataJob] = useState([]);
   const [input, setInput] = useState({
-    name: "",
-    course: "",
-    score: 0,
+    title: "",
+    job_description: "",
+    job_qualification: "",
+    job_type: "",
+    job_tenure: "",
+    job_status: "",
+    job_status_0: "",
+    job_status_1: "",
+    company_name: "",
+    company_image_url: "",
+    company_city: "",
+    salary_min: "",
+    salary_max: "",
   });
   let [currentIndex, setCurrentIndex] = useState(-1);
   let [fetchStatus, setFetchStatus] = useState(true);
@@ -34,36 +45,83 @@ export const DataJobProvider = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    let { name, course, score } = input;
+    let {
+      id,
+      title,
+      job_description,
+      job_qualification,
+      job_type,
+      job_tenure,
+      job_status,
+      company_name,
+      company_image_url,
+      company_city,
+      salary_min,
+      salary_max,
+    } = input;
 
     if (currentIndex === -1) {
       axios
-        .post(`https://backendexample.sanbercloud.com/api/student-scores`, {
-          name,
-          course,
-          score,
-        })
+        .post(
+          `https://dev-example.sanbercloud.com/api/job-vacancy`,
+          {
+            id,
+            title,
+            job_description,
+            job_qualification,
+            job_type,
+            job_tenure,
+            job_status,
+            company_name,
+            company_image_url,
+            company_city,
+            salary_min,
+            salary_max,
+          },
+          { headers: { Authorization: "Bearer " + Cookies.get("token") } }
+        )
         .then((res) => {
-          history.push("/Tugas14");
+          history.push("/");
           setFetchStatus(true);
         });
     } else {
       axios
         .put(
-          `https://backendexample.sanbercloud.com/api/student-scores/${currentIndex}`,
-          { name, course, score }
+          `https://dev-example.sanbercloud.com/api/job-vacancy/${currentIndex}`,
+          {
+            title,
+            job_description,
+            job_qualification,
+            job_type,
+            job_tenure,
+            job_status,
+            company_name,
+            company_image_url,
+            company_city,
+            salary_min,
+            salary_max,
+          },
+          { headers: { Authorization: "Bearer " + Cookies.get("token") } }
         )
         .then((res) => {
-          history.push("/Tugas14");
+          history.push("/");
 
           setFetchStatus(true);
         });
     }
 
     setInput({
-      name: "",
-      course: "",
-      score: 0,
+      title: "",
+      job_description: "",
+      job_qualification: "",
+      job_type: "",
+      job_tenure: "",
+      job_status: "",
+      company_name: "",
+      company_image_url: "",
+      company_city: "",
+      salary_min: "",
+      salary_max: "",
     });
     setCurrentIndex(-1);
   };
@@ -71,22 +129,43 @@ export const DataJobProvider = (props) => {
   const handleChange = (e) => {
     let value = e.target.value;
     let name = e.target.name;
+    let status = ["job_status_1", "job_status_0"];
 
-    setInput({ ...input, [name]: value });
+    if (name === "job_status_1") {
+      setInput({
+        ...input,
+        job_status_1: value,
+        job_status_0: "",
+        job_status: value,
+      });
+    } else if (name === "job_status_0") {
+      setInput({
+        ...input,
+        job_status_0: value,
+        job_status_1: "",
+        job_status: value,
+      });
+    } else {
+      setInput({ ...input, [name]: value });
+    }
   };
 
   const handleEdit = (event) => {
-    let idMahasiswa = parseInt(event.target.value);
-    history.push(`/Tugas14/edit/${idMahasiswa}`);
+    let idJob = parseInt(event.target.value);
+    history.push(`/dashboard/list-job-vacancy/edit/${idJob}`);
+    console.log(idJob);
+  };
+  const handleShow = (event) => {
+    let idJob = parseInt(event.target.getAttribute("value"));
+    history.push(`/job-vacancy/${idJob}`);
+    // console.log(idJob);
   };
 
   const handleDelete = (event) => {
     let idData = parseInt(event.target.value);
     // console.log(idData)
     axios
-      .delete(
-        `https://backendexample.sanbercloud.com/api/student-scores/${idData}`
-      )
+      .delete(`https://dev-example.sanbercloud.com/api/job-vacancy/${idData}`)
       .then(() => {
         setFetchStatus(true);
       });
@@ -105,6 +184,7 @@ export const DataJobProvider = (props) => {
     handleSubmit,
     handleChange,
     handleEdit,
+    handleShow,
     handleDelete,
     handleStatus,
   };

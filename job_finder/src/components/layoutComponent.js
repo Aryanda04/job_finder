@@ -7,7 +7,7 @@ const LayoutComponent = (props) => {
     <>
       <Nav />
       <div className="row">
-        <div className="section">{props.content}</div>
+        <div>{props.content}</div>
       </div>
       <Foot />
     </>
