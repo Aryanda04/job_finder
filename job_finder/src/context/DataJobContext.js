@@ -117,7 +117,7 @@ export const DataJobProvider = (props) => {
   const handleChange = (e) => {
     let value = e.target.value;
     let name = e.target.name;
-    let status = ["job_status_1", "job_status_0"];
+    // let status = ["job_status_1", "job_status_0"];
 
     if (name === "job_status_1") {
       setInput({
