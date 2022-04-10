@@ -11,6 +11,7 @@ const JobList = () => {
     handleEdit,
     handleDelete,
     handleStatus,
+    handleSalary,
   } = handleFunctions;
 
   let {
@@ -111,7 +112,8 @@ const JobList = () => {
                       <td class="px-6 py-4">{res.job_tenure}</td>
                       <td class="px-6 py-4">{handleStatus(res.job_status)}</td>
                       <td class="px-6 py-4">
-                        {res.salary_min} - {res.salary_max}
+                        {handleSalary(res.salary_min)} -{" "}
+                        {handleSalary(res.salary_max)}
                       </td>
 
                       <td class="px-6 py-4">{res.company_name}</td>

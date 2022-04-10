@@ -8,6 +8,8 @@ export const DataJobContext = createContext();
 export const DataJobProvider = (props) => {
   let history = useHistory();
   const [dataJob, setDataJob] = useState([]);
+  const [searchStatus, setSearchStatus] = useState(true);
+
   const [input, setInput] = useState({
     title: "",
     job_description: "",
@@ -25,22 +27,6 @@ export const DataJobProvider = (props) => {
   });
   let [currentIndex, setCurrentIndex] = useState(-1);
   let [fetchStatus, setFetchStatus] = useState(true);
-
-  const handleText = (param) => {
-    let nilai = param;
-
-    if (nilai >= 80) {
-      return "A";
-    } else if (nilai >= 70 && nilai < 80) {
-      return "B";
-    } else if (nilai >= 60 && nilai < 70) {
-      return "C";
-    } else if (nilai >= 50 && nilai < 60) {
-      return "D";
-    } else {
-      return "E";
-    }
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -81,7 +67,8 @@ export const DataJobProvider = (props) => {
           { headers: { Authorization: "Bearer " + Cookies.get("token") } }
         )
         .then((res) => {
-          history.push("/");
+          alert("Data berhasil ditambahkan");
+          history.push("/dashboard/list-job-vacancy");
           setFetchStatus(true);
         });
     } else {
@@ -104,7 +91,8 @@ export const DataJobProvider = (props) => {
           { headers: { Authorization: "Bearer " + Cookies.get("token") } }
         )
         .then((res) => {
-          history.push("/");
+          alert("data berhasil dirubah");
+          history.push("/dashboard/list-job-vacancy");
 
           setFetchStatus(true);
         });
@@ -165,9 +153,12 @@ export const DataJobProvider = (props) => {
     let idData = parseInt(event.target.value);
     // console.log(idData)
     axios
-      .delete(`https://dev-example.sanbercloud.com/api/job-vacancy/${idData}`)
+      .delete(`https://dev-example.sanbercloud.com/api/job-vacancy/${idData}`, {
+        headers: { Authorization: "Bearer " + Cookies.get("token") },
+      })
       .then(() => {
         setFetchStatus(true);
+        alert("Data berhaisl dihapus");
       });
   };
   const handleStatus = (params) => {
@@ -178,15 +169,36 @@ export const DataJobProvider = (props) => {
       return "Ditutup";
     }
   };
+  const handleSalary = (angka) => {
+    if (angka !== null) {
+      var number_string = angka.toString(),
+        split = number_string.split(","),
+        sisa = split[0].length % 3,
+        rupiah = split[0].substr(0, sisa),
+        ribuan = split[0].substr(sisa).match(/\d{3}/gi),
+        separator;
+
+      // tambahkan titik jika yang di input sudah menjadi angka ribuan
+      if (ribuan) {
+        separator = sisa ? "." : "";
+        rupiah += separator + ribuan.join(".");
+      }
+
+      rupiah = split[1] !== undefined ? rupiah + "," + split[1] : rupiah;
+      return rupiah === "0" ? "Free" : "Rp. " + rupiah + ",-";
+    } else {
+      return "Free";
+    }
+  };
 
   let handleFunctions = {
-    handleText,
     handleSubmit,
     handleChange,
     handleEdit,
     handleShow,
     handleDelete,
     handleStatus,
+    handleSalary,
   };
 
   let state = {
@@ -196,6 +208,8 @@ export const DataJobProvider = (props) => {
     setInput,
     currentIndex,
     setCurrentIndex,
+    searchStatus,
+    setSearchStatus,
     fetchStatus,
     setFetchStatus,
   };

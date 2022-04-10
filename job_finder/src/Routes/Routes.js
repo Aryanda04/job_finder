@@ -14,6 +14,8 @@ import JobCard from "../home/job-vacancy";
 import JobForm from "../dashboard/job-form";
 import ChangePassword from "../dashboard/changePassword";
 import { Redirect } from "react-router-dom";
+import SearchSection from "../home/searchSection";
+import NotFound from "./notFound";
 
 const Pages = () => {
   const LoginRoute = ({ ...props }) => {
@@ -42,6 +44,9 @@ const Pages = () => {
             <Route path="/job-vacancy/:slug" exact>
               <LayoutComponent content={<JobCard />} />
             </Route>
+            <Route path="/search/:valueOfSearch" exact>
+              <LayoutComponent content={<SearchSection />} />
+            </Route>
             <DashboardRoute path="/dashboard/list-job-vacancy" exact>
               <DashboardComponent content={<JobList />} />
             </DashboardRoute>
@@ -63,6 +68,9 @@ const Pages = () => {
             </LoginRoute>
             <Route path="/register" exact>
               <LayoutComponent content={<Regist />} />
+            </Route>
+            <Route path="*">
+              <LayoutComponent content={<NotFound />} />
             </Route>
           </Switch>
         </DataJobProvider>
